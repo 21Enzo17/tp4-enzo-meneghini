@@ -1,0 +1,19 @@
+
+<div class="container p-5">
+    <div class="d-flex justify-content-between align-items-center bg-primary px-5 py-2 rounded">
+        <h1 class=" text-white">Sistema de Gestion de tickets</h1>
+        @if (!mostrarFormulario) {
+            <button class="btn btn-success" (click)="cambiarVisibilidad()"><i class="bi bi-plus-circle"></i></button>
+        }@else {
+            <button class="btn btn-success" (click)="cambiarVisibilidad()"><i class="bi bi-list-ul"></i></button>
+        }
+    </div>
+</div>
+
+@if (!mostrarFormulario) {
+    <app-lista (editarTicket)="editarTicket($event)" ></app-lista>
+}@else {
+    <app-formulario [id]="idTicket" (formSubmit)="cambiarVisibilidad()" #formularioComponent></app-formulario>
+}
+
+

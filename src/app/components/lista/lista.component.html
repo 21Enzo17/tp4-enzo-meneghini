@@ -1,0 +1,36 @@
+
+<div class="container my-5">
+    <table class="table text-center table-responsive-md">
+        <thead>
+          <tr>
+            <th scope="col" width="5%">#</th>
+            <th scope="col" width="15%">DNI</th>
+            <th scope="col" width="15%">Precio Real</th>
+            <th scope="col" width="15%">Precio Cobrado</th>
+            <th scope="col" width="15%">Tipo Espectador</th>
+            <th scope="col" width="15%">Fecha Cobro</th>
+            <th scope="col" width="10%">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            @for (ticket of tickets; track $index) {
+                <tr>
+                    <th scope="row">{{ $index + 1 }}</th>
+                    <td>{{ ticket.dni }}</td>
+                    <td>{{ ticket.precioReal | currency }}</td>
+                    <td>{{ ticket.precioCobrado | currency }}</td>
+                    <td>{{ ticket.tipoEspectador | tipoEspectador }}</td>
+                    <td>{{ ticket.fechaCobro | date:'dd/MM/yyyy' }}</td>
+                    <td>
+                        <button class="btn btn-danger me-2" (click)="eliminarTicket(ticket.id)" ><i class="bi bi-x-circle"></i></button>
+                        <button class="btn btn-success" (click)="editarTicket.emit(ticket.id)"><i class="bi bi-pencil-square"></i></button>
+                    </td>
+
+                </tr>
+            }
+          
+        </tbody>
+      </table>
+
+</div>

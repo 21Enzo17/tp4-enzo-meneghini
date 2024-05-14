@@ -1,0 +1,97 @@
+<div class="container vh-100 d-flex align-items-center justify-content-center flex-column">
+    <h3 class="p-3 w-100 bg-primary text-center text-white rounded">Juego de Adivinar palabras</h3>
+    
+
+    <div class="w-100">
+
+        @if (listaPalabras.length<1 && !fin) {
+            <div class="d-flex align-items-center justify-content-center m-5">
+                <button class="btn btn-success mx-auto p-5" (click)="iniciarJuego()" >PLAY</button>
+            </div>
+        }
+
+        @if (listaPalabras.length>0) {
+            <div>
+                @if(opcionElegida==0) {
+                    <p class="fs-4 text-center alert alert-warning p-3 my-2">Palabra: {{listaPalabras[iteracionPalabra]}}</p>
+                }@else{
+                    <p class="fs-4 text-center alert alert-warning p-3 my-2">Pregunta: ¿Cuántas {{ opcionElegida === 1 ? 'vocales' :
+                        opcionElegida === 2 ? 'consonantes' : opcionElegida === 3 ? 'letras' : 'sílabas' }} tiene la palabra
+                        {{listaPalabras[iteracionPalabra] }}?</p>
+                }
+                <div class="row g-2">
+                    @if(opcionElegida==0){   
+                        <div class="col-6">
+                            <div class="d-flex align-items-stretch">
+                                <button class="btn btn-success w-100 py-5" (click)="generarRespuestasAleatorias(listaPalabras[iteracionPalabra],1)">Vocales</button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-stretch">
+                                <button class="btn btn-success w-100 py-5" (click)="generarRespuestasAleatorias(listaPalabras[iteracionPalabra],2)">Consonantes</button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-stretch">
+                                <button class="btn btn-success w-100 py-5" (click)="generarRespuestasAleatorias(listaPalabras[iteracionPalabra],3)">Letras</button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-stretch">
+                                <button class="btn btn-success w-100 py-5" (click)="generarRespuestasAleatorias(listaPalabras[iteracionPalabra],4)">Silabas</button>
+                            </div>
+                        </div>
+                    }@else {
+                        @for (opcion of respuestas; track $index) {
+                            <div class="col-6">
+                                <div class="d-flex align-items-stretch">
+                                    <button class="btn btn-success w-100 py-5"
+                                        (click)="verificarRespuesta(opcion, opcionElegida)">{{ opcion }}</button>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="fs-4 mt-3" >
+                    <p>Progreso: {{iteracionPalabra}}/8</p>
+                    <p>Aciertos: {{aciertos}}</p>
+                    <p>Errores: {{errores}}</p>
+                </div>
+            </div>
+        }
+        @if (fin) {
+            <div class="d-flex flex-column align-items-center m-5">
+                <h3 class="mb-5">FIN!</h3>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#resultadosModal">
+                    Mostrar resultados
+                </button>
+            </div>
+        }
+    </div>
+    
+</div>
+
+<div class="modal fade" id="resultadosModal" tabindex="-1" aria-labelledby="resultadosModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="resultadosModalLabel">Resultados</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fs-4 px-5">
+            <p>Aciertos: {{aciertos}}</p>
+            <p>Errores: {{errores}}</p>
+            
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" (click)="iniciarJuego()"  data-bs-dismiss="modal">Jugar de nuevo</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

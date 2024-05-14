@@ -1,0 +1,45 @@
+<div class="bg-white border rounded shadow  p-5  container d-flex flex-column justify-content-center mt-5" style="max-width: 30rem;">
+    @if(id){
+        <h2 class="bg-primary p-2 text-white rounded text-center">Editar Ticket</h2>
+    }@else{
+        <h2 class="bg-primary p-2 text-white rounded text-center">Agregar Ticket</h2>
+    }
+        <form #form>
+            <div class="form-group mb-5">
+                <label for="dni">DNI</label>
+                <input type="text" class="form-control" id="dni" name="dni" [(ngModel)]="ticket.dni" required>
+            </div>
+    
+            <div class="form-group mb-5">
+                <label for="precioReal">Precio Real</label>
+                <input type="number" class="form-control" id="precioReal" name="precioReal" ngModel
+                    (change)="calcularPrecio()" [(ngModel)]="ticket.precioReal" required>
+            </div>
+    
+            <div class="form-group mb-5">
+                <label for="tipoEspectador">Tipo de Espectador</label>
+                <select class="form-control" id="tipoEspectador" name="tipoEspectador" [(ngModel)]="ticket.tipoEspectador"
+                    (change)="calcularPrecio()" required>
+                    <option value="l">Local</option>
+                    <option value="e">Extranjero</option>
+                </select>
+            </div>
+    
+            @if (ticket.tipoEspectador === 'l' && ticket.precioReal !== 0) {
+            <div class="form-group mb-5">
+                <label for="precioCobrado">Precio Cobrado</label>
+                <input type="number" [(ngModel)]="ticket.precioCobrado" class="form-control" id="precioCobrado"
+                    name="precioCobrado" readonly required>
+            </div>
+            }
+    
+            @if (id) {
+                <button type="submit" class="btn btn-primary" (click)="modificarTicket()">Editar</button>
+            }@else {
+                <button type="submit" class="btn btn-primary" (click)="agregarTicket()">Registrar</button>
+            }
+            
+        </form>
+    
+    
+    </div>
